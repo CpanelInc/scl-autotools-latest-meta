@@ -94,9 +94,11 @@ rm -rf %{buildroot}/%{_root_sysconfdir}/rpm/macros.%{scl}-config
 
 %files runtime
 %scl_files
+%if 0%{?rhel} >= 8
 %defattr(755,root,root,755)
 /etc/scl/modulefiles/autotools-latest
 /opt/rh/autotools-latest/autotools-latest
+%endif
 
 %changelog
 * Thu May 21 2020 Julian Brown <julian.brown@cpanel.net> - 1-14
