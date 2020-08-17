@@ -6,7 +6,7 @@
 %{?scl:%scl_package %scl}
 
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4590 for more details
-%define release_prefix 13
+%define release_prefix 14
 
 Summary: Package that installs %scl
 Name: %scl_name
@@ -94,8 +94,16 @@ rm -rf %{buildroot}/%{_root_sysconfdir}/rpm/macros.%{scl}-config
 
 %files runtime
 %scl_files
+%if 0%{?rhel} >= 8
+%defattr(755,root,root,755)
+/etc/scl/modulefiles/autotools-latest
+/opt/rh/autotools-latest/autotools-latest
+%endif
 
 %changelog
+* Thu May 21 2020 Julian Brown <julian.brown@cpanel.net> - 1-14
+- ZC-6854: Correct builds issues on C8
+
 * Wed Aug 12 2015 Pavel Raiskup <praiskup@redhat.com> - 1-13
 - use _compat_el5_build only if defined (rhbz#1252751)
 
